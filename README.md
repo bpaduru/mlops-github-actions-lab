@@ -1,5 +1,8 @@
 # MLOps Lab 1: GitHub Actions with Pytest and Unittest
 
+![Pytest](https://github.com/bpaduru/mlops-github-actions-lab/actions/workflows/pytest_action.yml/badge.svg)
+![Unittest](https://github.com/bpaduru/mlops-github-actions-lab/actions/workflows/unittest_action.yml/badge.svg)
+
 This is my version of Lab 1 from the [MLOps course repo](https://github.com/raminmohammadi/MLOps/tree/main/Labs/Github_Labs/Lab1). The lab is about automated testing and CI. It has a small calculator module, tests written with pytest and unittest, and GitHub Actions workflows that run the tests every time code is pushed. I kept the original setup and made my own changes on top of it, mainly to the CI pipeline, which are listed in the "What I changed" section below.
 
 ## What you need to install
