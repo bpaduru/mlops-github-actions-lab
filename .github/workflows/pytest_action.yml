@@ -28,23 +28,27 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
+        # caches pip downloads so later runs install faster
+        cache: 'pip'
 
     - name: Install dependencies
       run: pip install -r requirements.txt
 
-    - name: Run tests and generate XML report
-      run: pytest -v --junitxml=pytest-report.xml
-      continue-on-error: false
+    # build fails if coverage of the src folder is under 80 percent
+    - name: Run tests with coverage check
+      run: pytest -v --cov=src --cov-report=term-missing --cov-report=xml:coverage.xml --cov-fail-under=80 --junitxml=pytest-report.xml
 
     - name: Run grade report on student data
       run: python -m src.grade_stats
 
-    - name: Upload test results
+    - name: Upload test and coverage results
       if: always()
       uses: actions/upload-artifact@v4
       with:
         name: test-results-${{ matrix.python-version }}
-        path: pytest-report.xml
+        path: |
+          pytest-report.xml
+          coverage.xml
 
     - name: Notify on success
       if: success()
@@ -52,4 +56,4 @@ jobs:
 
     - name: Notify on failure
       if: failure()
-      run: echo "Tests failed on Python ${{ matrix.python-version }}"
+      run: echo "Tests or coverage check failed on Python ${{ matrix.python-version }}"

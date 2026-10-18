@@ -2,3 +2,5 @@ lab_env/
 __pycache__/
 .pytest_cache/
 pytest-report.xml
+.coverage
+coverage.xml
